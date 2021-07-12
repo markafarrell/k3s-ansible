@@ -3,6 +3,24 @@
 - hosts: k3s_cluster
   gather_facts: yes
   become: yes
+  tasks:
+    - name: Add authorized keys to user
+      ansible.posix.authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ lookup('file', 'credentials/ssh/id_ed25519.pub') }}"
+
+    - name: Reset connection
+      meta: reset_connection
+
+    - name: Disable password based login
+      ansible.builtin.user:
+        name: pi
+        password: "!"
+
+- hosts: k3s_cluster
+  gather_facts: yes
+  become: yes
   roles:
     - role: prereq
     - role: download
@@ -17,3 +35,12 @@
   become: yes
   roles:
     - role: k3s/node
+
+- hosts: master
+  gather_facts: false
+  tasks:
+    - name: Fetch .kube/config
+      ansible.builtin.fetch:
+        src: .kube/config
+        dest: credentials/kube/config
+        flat: yes

@@ -1,0 +1,19 @@
+---
+# tasks file for k8s-prometheus
+- name: Add prometheus-community chart repo
+  community.kubernetes.helm_repository:
+    name: prometheus-community
+    repo_url: "https://prometheus-community.github.io/helm-charts"
+
+- name: Add kube-state-metrics chart repo
+  community.kubernetes.helm_repository:
+    name: kube-state-metrics
+    repo_url: "https://kubernetes.github.io/kube-state-metrics"
+
+- name: Install prometheus chart
+  community.kubernetes.helm:
+    name: prometheus
+    chart_ref: prometheus-community/prometheus
+    release_namespace: monitoring
+    create_namespace: true
+    kubeconfig: "{{ kubeconfig_path | default(omit) }}"

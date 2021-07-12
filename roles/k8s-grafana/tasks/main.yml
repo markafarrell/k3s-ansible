@@ -1,0 +1,15 @@
+---
+# tasks file for k8s-grafana
+
+- name: Add grafana chart repo
+  community.kubernetes.helm_repository:
+    name: grafana
+    repo_url: "https://grafana.github.io/helm-charts"
+
+- name: Install prometheus chart
+  community.kubernetes.helm:
+    name: grafana
+    chart_ref: grafana/grafana
+    release_namespace: monitoring
+    create_namespace: true
+    kubeconfig: "{{ kubeconfig_path | default(omit) }}"
