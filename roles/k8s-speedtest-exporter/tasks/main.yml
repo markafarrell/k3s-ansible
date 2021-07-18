@@ -1,0 +1,17 @@
+---
+# tasks file for k8s-speedtest-exporter
+- name: Add k8s-at-home chart repo
+  community.kubernetes.helm_repository:
+    name: k8s-at-home
+    repo_url: "https://k8s-at-home.com/charts/"
+
+- name: Install speedtest-exporter chart
+  community.kubernetes.helm:
+    name: speedtest-exporter
+    chart_ref: k8s-at-home/speedtest-exporter
+    release_namespace: speedtest-exporter
+    create_namespace: true
+    kubeconfig: "{{ kubeconfig_path | default(omit) }}"
+    values:
+      env:
+        SPEEDTEST_SERVER: "{{ speedtest_exporter_speedtest_server | default(omit) }}"
