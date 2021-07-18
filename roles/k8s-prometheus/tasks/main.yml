@@ -17,3 +17,6 @@
     release_namespace: monitoring
     create_namespace: true
     kubeconfig: "{{ kubeconfig_path | default(omit) }}"
+    values:
+      server:
+        remoteWrite: "{{ prometheus_remote_write | default([]) }}"
