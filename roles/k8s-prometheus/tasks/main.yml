@@ -20,3 +20,4 @@
     values:
       server:
         remoteWrite: "{{ prometheus_remote_write | default([]) }}"
+      extraScrapeConfigs: "{{ prometheus_extra_scrape_configs | default(omit) }}"
