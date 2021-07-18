@@ -1,7 +1,7 @@
 ---
 speedtest_exporter_speedtest_server: 2225 # Telstra Melbourne Australia
-speedtest_exporter_interval: 2m # Run the test every 5 minutes
-speedtest_exporter_namespace: speedtest_exporter
+speedtest_exporter_interval: 2m # Run the test every 2 minutes
+speedtest_exporter_namespace: speedtest-exporter
 
 speedtest_exporter_scrape_config: |
   - job_name: 'speedtest-exporter'
