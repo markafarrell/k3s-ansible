@@ -58,3 +58,11 @@ To get access to your **Kubernetes** cluster just
 ```bash
 scp debian@master_ip:~/.kube/config ~/.kube/config
 ```
+
+# Encrypted variables in inventory
+
+Use
+
+```
+echo -n 'your_secret_string' | ansible-vault encrypt_string --encrypt-vault-id default --vault-id credentials/ansible/vault-password
+```
