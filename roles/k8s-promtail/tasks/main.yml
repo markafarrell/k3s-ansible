@@ -1,0 +1,17 @@
+---
+# tasks file for k8s-promtail
+- name: Add grafana chart repo
+  community.kubernetes.helm_repository:
+    name: grafana
+    repo_url: "https://grafana.github.io/helm-charts"
+
+- name: Install prometheus chart
+  community.kubernetes.helm:
+    name: promtail
+    chart_ref: grafana/promtail
+    release_namespace: logging
+    create_namespace: true
+    kubeconfig: "{{ kubeconfig_path | default(omit) }}"
+    values:
+      config:
+        lokiAddress: "{{ promtail_loki_address }}"
