@@ -1,4 +1,6 @@
 ---
+prometheus_state: present
+
 prometheus_remote_write:
   - url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
     basic_auth:
@@ -21,3 +23,5 @@ prometheus_remote_write:
           35333638313631363330326562613666326431663739323730643566653535646663353766643361
           61633434353363343461626566653039323733383439396231646564643533386332303562386638
           3666336665336637633638356665306534386233336436373936
+
+prometheus_extra_scrape_configs: "{{ speedtest_exporter_scrape_config }}"

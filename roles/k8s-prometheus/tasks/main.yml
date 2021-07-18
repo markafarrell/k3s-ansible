@@ -17,7 +17,13 @@
     release_namespace: monitoring
     create_namespace: true
     kubeconfig: "{{ kubeconfig_path | default(omit) }}"
+    state: "{{ prometheus_state | default('present') }}"
     values:
       server:
         remoteWrite: "{{ prometheus_remote_write | default([]) }}"
+        extraFlags:
+          - web.enable-lifecycle
+          - log.level=debug
       extraScrapeConfigs: "{{ prometheus_extra_scrape_configs | default(omit) }}"
+
+

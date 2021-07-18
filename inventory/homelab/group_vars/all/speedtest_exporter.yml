@@ -1,12 +1,11 @@
 ---
 speedtest_exporter_speedtest_server: 2225 # Telstra Melbourne Australia
-speedtest_exporter_interval: 5m # Run the test every 5 minutes
+speedtest_exporter_interval: 2m # Run the test every 5 minutes
+speedtest_exporter_namespace: speedtest_exporter
 
-speedtest_exporter_scrape_config:
+speedtest_exporter_scrape_config: |
   - job_name: 'speedtest-exporter'
     scrape_interval: "{{ speedtest_exporter_interval }}"
     scrape_timeout: 1m
     static_configs:
-      - targets: ['speedtest-exporter:9798']
-
-prometheus_extra_scrape_configs: "{{ prometheus_extra_scrape_configs | default([]) + speedtest_exporter_scrape_config }}"
+      - targets: ['speedtest-exporter.{{ speedtest_exporter_namespace }}.svc.cluster.local:9798']
