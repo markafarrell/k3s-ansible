@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - role: k8s-promtail
+      vars:
+        kubeconfig_path: "credentials/kube/config"
