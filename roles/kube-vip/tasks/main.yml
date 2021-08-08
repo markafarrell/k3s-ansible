@@ -1,0 +1,11 @@
+---
+# tasks file for kube-vip
+- name: Write manifests to master
+  template:
+    src: "{{ item }}"
+    dest: "/var/lib/rancher/k3s/server/manifests/{{ item }}"
+    mode: "0600"
+  loop:
+    - rbac.yml
+    - dameonset.yml
+  become: true
