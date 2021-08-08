@@ -23,5 +23,35 @@ prometheus_remote_write:
           35333638313631363330326562613666326431663739323730643566653535646663353766643361
           61633434353363343461626566653039323733383439396231646564643533386332303562386638
           3666336665336637633638356665306534386233336436373936
+    # write_relabel_configs:
+    #   - source_labels: [__name__]
+    #     regex: "apiserver_request_duration_seconds_bucket|\
+    #       etcd_request_duration_seconds_bucket|\
+    #       apiserver_response_sizes_bucket|\
+    #       workqueue_queue_duration_seconds_bucket|\
+    #       workqueue_work_duration_seconds_bucket|\
+    #       scheduler_plugin_execution_duration_seconds_bucket|\
+    #       apiserver_request_total|\
+    #       kubelet_runtime_operations_duration_seconds_bucket|\
+    #       apiserver_watch_events_sizes_bucket|\
+    #       apiserver_request_duration_seconds_count|\
+    #       apiserver_request_duration_seconds_sum|\
+    #       apiserver_admission_controller_admission_duration_seconds_bucket|\
+    #       rest_client_request_duration_seconds_bucket|\
+    #       storage_operation_duration_seconds_bucket|\
+    #       etcd_request_duration_seconds_sum|\
+    #       etcd_request_duration_seconds_count|\
+    #       apiserver_response_sizes_count|\
+    #       apiserver_response_sizes_sum|\
+    #       container_tasks_state|\
+    #       kubeproxy_network_programming_duration_seconds_bucket|\
+    #       container_memory_failures_total|\
+    #       scheduler_framework_extension_point_duration_seconds_bucket"
+    #     action: drop
+    write_relabel_configs:
+      - source_labels: [__name__]
+        regex: "(node_.*)|\
+          (speedtest_.*)"
+        action: "keep"
 
 prometheus_extra_scrape_configs: "{{ speedtest_exporter_scrape_config }}"
